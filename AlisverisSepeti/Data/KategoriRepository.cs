@@ -8,21 +8,21 @@ namespace AlisverisSepeti.Data
 {
     public class KategoriRepository
     {
-        List<Kategori> kategoriler;
+        AliverisSepetiContext context;
 
-        public KategoriRepository()
+        public KategoriRepository(AliverisSepetiContext context)
         {
-            kategoriler = new List<Kategori>
-            {
-                new Kategori {Id=1, Isim="Tatlılar"},
-                new Kategori {Id=2, Isim="Meyveler"},
-                new Kategori {Id=3, Isim="Sebzeler"}
-            };
+            this.context = context;
         }
 
         public List<Kategori> KategorileriGetir()
         {
-            return kategoriler;
+            return context.Kategoriler.ToList();
+        }
+
+        public Kategori KategoriGetir(int id)
+        {
+            return context.Kategoriler.FirstOrDefault(kategori => kategori.Id == id);
         }
     }
 }

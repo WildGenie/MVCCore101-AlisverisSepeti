@@ -9,13 +9,23 @@ namespace AlisverisSepeti.Controllers
 {
     public class UrunController : Controller
     {
+        AliverisSepetiContext context;
+        public UrunController()
+        {
+            context = new AliverisSepetiContext();
+        }
+
         public IActionResult Index(int? kategoriId)
         {
-            var urunRepository = new UrunRepository();
+            var urunRepository = new UrunRepository(context);
+            var kategoriRepository = new KategoriRepository(context);
             List<Models.Urun> model;
 
             if (kategoriId.HasValue)
             {
+                var kategori = kategoriRepository.KategoriGetir(kategoriId.Value);
+
+                ViewData["Filtre"] = kategori;
                 model = urunRepository.UrunleriKategoriyeGoreGetir(kategoriId.Value);
             }
             else

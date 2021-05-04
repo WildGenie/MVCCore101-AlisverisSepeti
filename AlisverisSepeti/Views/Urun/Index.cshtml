@@ -2,12 +2,17 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    string filtreAciklama = null;
+    if (ViewBag.Filtre is Kategori kategori)
+    {
+        filtreAciklama = $"({kategori.Isim})";
+    }
 }
 @model List<Urun>
 
-<h1>Urunler</h1>
+<h1>Urunler @filtreAciklama</h1>
 
 @foreach (var urun in Model)
 {
-    <li>@urun.Isim</li>
+    <li>@urun.Isim (@urun.Kategori.Isim)</li>
 }
